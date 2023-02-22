@@ -41,16 +41,19 @@ exports.createHospital = async (req, res, next) => {
 //@access Private
 exports.updateHospital = async (req, res, next) => {
   try {
+    // console.log(req.body, req.params.id);
     const hospital = await Hospital.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
     if (!hospital) {
-      return res.status(400).json({ success: false });
+      return res
+        .status(400)
+        .json({ success: false, msg: "can't find hospital" });
     }
     res.status(200).json({ success: true, data: hospital });
   } catch (err) {
-    res.status(400).json({ success: false });
+    res.status(400).json({ success: false, msg: "can't update hospital" });
   }
 };
 //@desc Delete hospital
@@ -61,5 +64,7 @@ exports.deleteHospital = async (req, res, next) => {
   if (!hospital) {
     return res.status(400).json({ success: false });
   }
-  res.status(200).json({ success: true, data: {} });
+  res
+    .status(200)
+    .json({ success: true, msg: `Delete Hospital ${req.params.id}`, data: {} });
 };
