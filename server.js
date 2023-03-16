@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 // Route files
 const hospitals = require("./routes/hospitals");
 const auth = require("./routes/auth");
+const appointment = require("./routes/appointments");
 
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/hospitals", hospitals);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/appointments", appointment);
 
 const PORT = process.env.PORT || 5001;
 const server = app.listen(

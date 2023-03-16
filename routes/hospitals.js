@@ -10,6 +10,10 @@ const {
   updateHospital,
   deleteHospital,
 } = require("../controllers/hospitals");
+
+// Include other resource routers
+const appointmentRouter = require("./appointments");
+
 /////////////////////////////////// Before controllers ///////////////////////////////////
 // router.get("/", (req, res) => {
 //   res.status(200).json({ success: true, msg: "Show all hospitals" });
@@ -37,6 +41,8 @@ const {
 //     .json({ success: true, msg: `Delete hospital ${req.params.id}` });
 // });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Re-route into other resource routers
+router.use("/:hospitalId/appointments", appointmentRouter);
 
 router
   .route("/")
