@@ -1,4 +1,6 @@
 const Hospital = require("../models/Hospital");
+const vacCenter = require("../models/VacCenter");
+
 //@desc Get hospital
 //@route GET /api/v1/hospital
 //@access Public
@@ -135,4 +137,18 @@ exports.deleteHospital = async (req, res, next) => {
   res
     .status(200)
     .json({ success: true, msg: `Delete Hospital ${req.params.id}`, data: {} });
+};
+
+//@desc Get vaccine centers
+//@route GET /api/v1/vaccineCenters
+//@access Public
+exports.getVacCenters = (req, res, next) => {
+  vacCenter.getAll((err, data) => {
+    if (err) {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving hospitals.",
+      });
+    } else res.send(data);
+  });
 };
